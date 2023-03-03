@@ -4,9 +4,10 @@ projekt na jjit3
 By odpalić użyj komendy:
 npm run devStart
 
-Przykładowy, prawidłowy objekt hotelu wygląda tak:
+Prawidłowy objekt pokoju wygląda tak:
 {
-    "bedCount": String,
-    "peopleCount": String,
+    "bedCount": Number,
+    "peopleCount": Number,
+    "price": Number
     "amenities": [ String ]
 }
