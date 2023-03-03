@@ -43,15 +43,26 @@ app.post('/create', (req, res) => {
 })
 
 async function findRoom(id, res) {
-    const room = await Room.findById(id)
-    const str = circularJSON.stringify(room)
-    JSON.parse(str) 
-    res.send(str)
+    try {
+        const room = await Room.findById(id)
+        const str = circularJSON.stringify(room)
+        JSON.parse(str)
+        res.send(str)
+    } catch(e) {
+        console.log(e)
+    }
+     
+    
 }
 
 async function createNewRoom(request, res) {
-    const newRoom = await Room.create(request)
-    const str = circularJSON.stringify(newRoom)
-    JSON.parse(str) 
-    res.status(200).send(str)
+    try {
+        const newRoom = await Room.create(request)
+        const str = circularJSON.stringify(newRoom)
+        JSON.parse(str) 
+        res.status(200).send(str)
+    } catch(e) {
+        console.log(e)
+    }
+
 }
