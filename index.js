@@ -21,7 +21,6 @@ app.listen(2137, () => {
 
 app.post('/register', (req, res) => {
     const { login, password } = req.body
-
     if(!login || !password) {  
         res.send('Login oraz hasło są wymagane!')
         return
@@ -34,12 +33,10 @@ app.post('/register', (req, res) => {
             createAccount(login, password, res)
         }
     })
-    
 })
 
 app.post('/login', (req, res) => {
     const { login, password } = req.body
-
     if(!login || !password) {  
         res.send('Login oraz hasło są wymagane!')
         console.log(req.params)
@@ -76,7 +73,6 @@ app.post('/create', (req, res) => {
         } else {
             createNewRoom(request, res)
         }
-        
     }
 })
 
@@ -96,7 +92,6 @@ function check(request) {
             errorString += `${properSchema[i]} \n `
         }
     }
-
     return errorString    
 }
 async function doesLoginExist(login) {
