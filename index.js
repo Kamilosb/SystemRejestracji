@@ -12,7 +12,7 @@ const Account = require('./account')
 // zamienamy body requestu na json 
 app.use(express.json())
 app.use(compression())
-app.listen(2137, () => {
+app.listen(5000, () => {
     console.log("server is working on port 2137")
 })
 
