@@ -68,7 +68,6 @@ app.post('/create', (req, res) => {
         const checkResponse = check(request)
         // sprawdzamy czy jest jakiś błąd, jeśli obiekt jest poprawny zwracamy true
         if(checkResponse.length > 28) {
-            console.log
             res.send(checkResponse)
         } else {
             createNewRoom(request, res)
