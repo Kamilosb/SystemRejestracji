@@ -4,7 +4,8 @@
   "description": "projekt na jjit3",
   "main": "index.js",
   "scripts": {
-    "devStart": "nodemon index.js"
+    "devStart": "nodemon index.js",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",

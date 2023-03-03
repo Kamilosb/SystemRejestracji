@@ -12,8 +12,9 @@ const Account = require('./account')
 // zamienamy body requestu na json 
 app.use(express.json())
 app.use(compression())
-app.listen(5000, () => {
-    console.log("server is working on port 2137")
+const porcik = process.env.PORT
+app.listen(porcik, () => {
+    console.log("server is working on port " + porcik)
 })
 
 // TODO - logowanie i rejestracja, dodanie tutaj checków z premisjami
