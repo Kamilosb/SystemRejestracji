@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const circularJSON = require('circular-json')
+const compression = require("compression");
 
 // łączenie się z bazą danych
 const mongoose = require('mongoose')
@@ -11,10 +12,8 @@ const Account = require('./account')
 
 // zamienamy body requestu na json 
 app.use(express.json())
-
-app.listen(2137, () => {
-    console.log("server is working on http://localhost:2137/")
-})
+app.use(compression())
+app.listen(2137)
 
 // TODO - logowanie i rejestracja, dodanie tutaj checków z premisjami
 
