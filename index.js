@@ -18,11 +18,6 @@ app.listen(porcik, () => {
 })
 
 // TODO - logowanie i rejestracja, dodanie tutaj checków z premisjami
-
-app.post('/', (req, res) => {
-    res.send('Wszystko powinno działać :D')
-})
-
 app.post('/register', (req, res) => {
     const { login, password } = req.body
     if(!login || !password) {  
@@ -52,9 +47,9 @@ app.post('/login', (req, res) => {
 
 // TODO - zwracać wszystkie pokoje
 app.get('/rooms', (req, res) => {
-    const dbResponse = Room.find()
-        console.log(dbResponse)
-        res.send(dbResponse)
+        getAllRooms(res)
+        // console.log(dbResponse)
+        // res.send(dbResponse)
 })
 
 // zwraca dany pokój po id
@@ -78,6 +73,17 @@ app.post('/create', (req, res) => {
         }
     }
 })
+
+async function getAllRooms(res) {
+    await Room.find().then((allRooms) => {
+        const str = circularJSON.stringify(allRooms)
+        JSON.parse(str) 
+        console.log(str)
+        res.send(str)
+    }).catch((err) => {
+        console.log(err)
+    })
+}
 
 function check(request) {
     let properSchema = []
