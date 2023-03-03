@@ -17,8 +17,6 @@ app.listen(2137, () => {
 
 // TODO - logowanie i rejestracja, dodanie tutaj checków z premisjami
 
-
-
 // TODO - zwracać wszystkie pokoje
 app.get('/rooms', (req, res) => {
     const dbResponse = Room.find()

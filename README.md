@@ -6,7 +6,7 @@ npm run devStart
 
 Prawidłowy objekt pokoju wygląda tak:
 {
-    "bedCount": Number,
+    "bedCount": Number, \n
     "peopleCount": Number,
     "price": Number
     "amenities": [ String ]
