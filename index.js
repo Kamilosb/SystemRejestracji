@@ -9,7 +9,7 @@ require("dotenv").config()
 mongoose.connect(process.env.DB_URL)
 const Room = require('./room')
 const Account = require('./account')
-
+//
 // zamienamy body requestu na json 
 app.use(express.json())
 app.use(compression())
