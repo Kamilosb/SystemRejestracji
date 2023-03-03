@@ -18,6 +18,9 @@ app.listen(2137, () => {
 
 // TODO - logowanie i rejestracja, dodanie tutaj checków z premisjami
 
+app.post('/', (req, res) => {
+    res.send('Wszystko powinno działać :D')
+})
 
 app.post('/register', (req, res) => {
     const { login, password } = req.body
