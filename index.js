@@ -7,12 +7,46 @@ const mongoose = require('mongoose')
 require("dotenv").config()
 mongoose.connect(process.env.DB_URL)
 const Room = require('./room')
+const Account = require('./account')
 
 // zamienamy body requestu na json 
 app.use(express.json())
 
 app.listen(2137, () => {
     console.log("server is working on http://localhost:2137/")
+})
+
+// TODO - logowanie i rejestracja, dodanie tutaj checków z premisjami
+
+
+app.post('/register', (req, res) => {
+    const { login, password } = req.body
+
+    if(!login || !password) {  
+        res.send('Login oraz hasło są wymagane!')
+        return
+    }
+    // TODO - sesje i te inne gówna
+    doesLoginExist(login).then(function(result) {
+        if(result) {
+            res.send('Konto o takim loginie już istnieje!')
+        } else {
+            createAccount(login, password, res)
+        }
+    })
+    
+})
+
+app.post('/login', (req, res) => {
+    const { login, password } = req.body
+
+    if(!login || !password) {  
+        res.send('Login oraz hasło są wymagane!')
+        console.log(req.params)
+    } else {
+        const request = req.body
+        findAccount(request, res)
+    }
 })
 
 // TODO - zwracać wszystkie pokoje
@@ -64,6 +98,33 @@ function check(request) {
     }
 
     return errorString    
+}
+async function doesLoginExist(login) {
+    const isObject = (value) => typeof value === "object" && value !== null
+    const asd = await Account.exists({"login": login})
+    if(!isObject(asd)) {
+        return(false)
+    } else {
+        return(true)
+    }
+}
+
+async function findAccount(request, res) {
+    const asd = await Account.exists(request)
+    if(asd) {
+        res.send('Logowanie pomyślne')
+    } else {
+        res.send('Błędne hasło lub login')
+    }
+}
+
+async function createAccount(login, password, res) {
+    const account = {
+        "login": login,
+        "password": password
+    }
+    await Account.create(account)
+    res.status(200).send("Konto stworzone pomyślnie")
 }
 
 async function findRoom(id, res) {
