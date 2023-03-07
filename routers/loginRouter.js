@@ -12,11 +12,11 @@ router.post('/register', async (req, res) => {
     }
     const isObject = (value) => typeof value === "object" && value !== null // do sprawdzania odpowiedzi z bazy danych czy login istnieje 
     const loginResponse = await Account.exists({"login": login})
-    let doesExist
     if(!isObject(loginResponse)) {
+        let hashedPassword;
         try { // szyfrowanie hasła
             const salt = await bcrypt.genSalt()
-            const hashedPassword = await bcrypt.hash(password, salt)
+            hashedPassword = await bcrypt.hash(password, salt)
         } catch {
             res.status(500).send
         }
