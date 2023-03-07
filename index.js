@@ -27,17 +27,7 @@ app.listen(porcik, () => {
 app.use('/users', userRouter)
 app.use('/admin', cookieAuth.cookieAuth, adminRouter)
 // TODO - zwracać wszystkie pokoje
-app.get('/rooms', (req, res) => {
-    getAllRooms(res)
-})
-
-// zwraca dany pokój po id
-app.get('/room/:id', (req, res) => {
-    const id = req.params.id
-    findRoom(id, res)
-})
-
-async function getAllRooms(res) {
+app.get('/rooms', async (req, res) => {
     await Room.find().then((allRooms) => {
         const str = circularJSON.stringify(allRooms)
         JSON.parse(str) 
@@ -45,12 +35,12 @@ async function getAllRooms(res) {
     }).catch((err) => {
         console.log(err)
     })
-}
+})
 
-async function findRoom(id, res) {
+// zwraca dany pokój po id
+app.get('/room/:id', async (req, res) => {
     const room = await Room.findById(id)
     const str = circularJSON.stringify(room)
     JSON.parse(str) 
     res.send(str)
-}
-
+})
