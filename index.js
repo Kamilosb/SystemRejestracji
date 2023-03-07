@@ -1,5 +1,5 @@
 const express = require('express')
-// const cors = require('cors')
+const cors = require('cors')
 const app = express()
 const circularJSON = require('circular-json')
 const compression = require("compression")
@@ -11,12 +11,13 @@ const mongoose = require('mongoose')
 require("dotenv").config()
 mongoose.connect(process.env.DB_URL)
 
-// app.use(cors({origin: true, credentials: true, exposedHeaders: '*' }))
-app.all('/', function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*")
-    res.header("Access-Control-Allow-Headers", "X-Requested-With")
-    next()
-})
+app.use(cors({origin: true, credentials: true, exposedHeaders: ["Access-Control-Allow-Headers", "Authorization, x-xsrf-token, Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, " +
+"Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"] }))
+// app.all('/', function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*")
+//     res.header("Access-Control-Allow-Headers", "X-Requested-With")
+//     next()
+// })
 
 const Room = require('./schemas/room')
 const Reservations = require('./schemas/reservations')
