@@ -4,7 +4,7 @@ const circularJSON = require('circular-json')
 const compression = require("compression")
 const cookieParser = require('cookie-parser')
 const cookieAuth = require('./cookieAuth')
-
+const cors = require('cors')
 // łączenie się z bazą danych
 const mongoose = require('mongoose')
 require("dotenv").config()
@@ -13,7 +13,9 @@ const Room = require('./room')
 const userRouter = require('./loginRouter')
 const adminRouter = require('./adminRouter')
 
+
 // zamienamy body requestu na json 
+app.use(cors())
 app.use(express.json())
 app.use(compression())
 app.use(cookieParser())
