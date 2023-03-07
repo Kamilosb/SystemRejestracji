@@ -7,7 +7,8 @@ const roomSchema = new mongoose.Schema({
     description: String,
     shortDescription: String,
     image: String,
-    amenities: [ String ]
+    amenities: [ String ],
+    price: Number
 })
 
 module.exports = mongoose.model("rooms", roomSchema)

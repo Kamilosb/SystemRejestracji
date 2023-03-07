@@ -1,29 +1,25 @@
 const express = require('express')
 const router = express.Router()
-const Room = require('./room')
+const Room = require('../schemas/room')
+const Reservations = require('../schemas/reservations')
 const circularJSON = require('circular-json')
 
-router.post('/create', async (req, res, next) => {
+router.post('/create', async (req, res) => { // dodawanie pokoju
     const request = req.body
     if(request.bedCount <= 0 || request.peopleCount <= 0) {
         res.status(400).send("Liczba łóżek i/lub osób nie może być ujemna!")
     } else {
-        const checkResponse = check(request)
-        // sprawdzamy czy jest jakiś błąd, jeśli obiekt jest poprawny zwracamy true
-        if(checkResponse.length > 28) {
+        const checkResponse = check(request) // sprawdzamy czy frontend nie zapomniał wpisać wszystkiego
+        if(checkResponse.length > 28) { // chciałem robić na zasadzie false jeśli błąd ale nie działało ¯\_(ツ)_/¯
             res.send(checkResponse)
         } else {
-            createNewRoom(request, res)
+            const newRoom = await Room.create(request)
+            const str = circularJSON.stringify(newRoom)
+            JSON.parse(str) 
+            res.status(200).send(str)
         }
     }
 })
-
-async function createNewRoom(request, res) {
-    const newRoom = await Room.create(request)
-    const str = circularJSON.stringify(newRoom)
-    JSON.parse(str) 
-    res.status(200).send(str)
-}
 
 function check(request) {
     let properSchema = []
@@ -43,4 +39,15 @@ function check(request) {
     }
     return errorString    
 }
+
+router.get('/reservations', async (req, res) => { // zwraca wszystkie rezerwacje
+    await Reservations.find().then((allReservations) => {
+        const str = circularJSON.stringify(allReservations)
+        JSON.parse(str) 
+        res.send(str)
+    }).catch((err) => {
+        console.log(err)
+    })
+})
+
 module.exports = router
