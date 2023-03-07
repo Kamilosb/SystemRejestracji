@@ -10,18 +10,11 @@ router.post('/register', async (req, res) => {
         res.send('Login oraz hasło są wymagane!')
         return
     }
-    const isObject = (value) => typeof value === "object" && value !== null
+    const isObject = (value) => typeof value === "object" && value !== null // do sprawdzania odpowiedzi z bazy danych czy login istnieje 
     const loginResponse = await Account.exists({"login": login})
     let doesExist
     if(!isObject(loginResponse)) {
-        doesExist = false
-    } else {
-        doesExist = true
-    }
-    if(doesExist) {
-        res.send('Konto o takim loginie już istnieje!')
-    } else {
-        try {
+        try { // szyfrowanie hasła
             const salt = await bcrypt.genSalt()
             var hashedPassword = await bcrypt.hash(password, salt)
         } catch {
@@ -31,10 +24,11 @@ router.post('/register', async (req, res) => {
             "login": login,
             "password": hashedPassword
         }
-        await Account.create(account)
+        await Account.create(account) // dodawanie konta do bazy
         res.status(200).send("Konto stworzone pomyślnie")
+    } else {
+        res.send('Konto o takim loginie już istnieje!')
     }
-
 })
 
 router.post('/login', async (req, res) => {
