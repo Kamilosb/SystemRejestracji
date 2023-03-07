@@ -11,7 +11,7 @@ const mongoose = require('mongoose')
 require("dotenv").config()
 mongoose.connect(process.env.DB_URL)
 
-app.use(cors({origin: true, credentials: true, exposedHeaders: ['Content-Type', 'Authorization', 'token'] }))
+app.use(cors({origin: true, credentials: true, exposedHeaders: '*' }))
 
 const Room = require('./schemas/room')
 const Reservations = require('./schemas/reservations')
