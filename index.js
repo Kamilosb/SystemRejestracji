@@ -11,7 +11,8 @@ const mongoose = require('mongoose')
 require("dotenv").config()
 mongoose.connect(process.env.DB_URL)
 
-app.use(cors({origin: true, credentials: true}))
+app.use(cors({origin: true, credentials: true, exposedHeaders: 'token' }))
+
 const Room = require('./schemas/room')
 const Reservations = require('./schemas/reservations')
 
@@ -29,14 +30,18 @@ app.listen(porcik, () => {
     console.log("server is working on port " + porcik)
 })
 
-app.get('/dupa', async (req, res) => {
-    res.cookie("testoweCiasteczko", "wartosc_ciasteczka_123123123", {
-        httpOnly: true,
-        secure: true,
-        sameSite: "none"
-    })
-    res.send('asdasdasdasd')
-})
+// app.get('/dupa', async (req, res) => { // testowy endpoint
+//     const cookieVal = randomInteger(0, 100000)
+//     res.cookie("testoweCiasteczko", cookieVal, {
+//         httpOnly: true,
+//         secure: true,
+//         sameSite: "none"
+//     })
+//     res.send('asdasdasdasd')
+//     console.log('Cookies: ', req.cookies)
+//     console.log('Signed Cookies: ', req.signedCookies)
+    
+// })
 
 // routery bo dużo syfu było w jednym pliku
 app.use('/users', userRouter)
@@ -93,4 +98,7 @@ function check(request) {
     return errorString    
 }
 
-
+// do testów
+// function randomInteger(min, max) {
+//     return Math.floor(Math.random() * (max - min + 1)) + min;
+// }
