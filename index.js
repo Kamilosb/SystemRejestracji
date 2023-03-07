@@ -29,6 +29,15 @@ app.listen(porcik, () => {
     console.log("server is working on port " + porcik)
 })
 
+app.get('/dupa', async (req, res) => {
+    res.cookie("testoweCiasteczko", "wartosc_ciasteczka_123123123", {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none"
+    })
+    res.send('asdasdasdasd')
+})
+
 // routery bo dużo syfu było w jednym pliku
 app.use('/users', userRouter)
 app.use('/admin', cookieAuth.cookieAuth, adminRouter) // cookie auth by tylko zalogowani użytkownicy mieli dostęp
