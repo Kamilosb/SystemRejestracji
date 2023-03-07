@@ -16,7 +16,7 @@ router.post('/register', async (req, res) => {
     if(!isObject(loginResponse)) {
         try { // szyfrowanie hasła
             const salt = await bcrypt.genSalt()
-            var hashedPassword = await bcrypt.hash(password, salt)
+            const hashedPassword = await bcrypt.hash(password, salt)
         } catch {
             res.status(500).send
         }
@@ -44,7 +44,9 @@ router.post('/login', async (req, res) => {
             if(await bcrypt.compare(password, userAccount.password)) {
                 const token = await jwt.sign(login, process.env.TOKEN_SECRET)
                 res.cookie("token", token, {
-                    httpOnly: true
+                    httpOnly: true,
+                    secure: true,
+                    sameSite: "none"
                 })
                 res.send('Zalogowano pomyślnie')
             } else {

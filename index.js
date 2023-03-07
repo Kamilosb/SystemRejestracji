@@ -1,10 +1,11 @@
 const express = require('express')
+const cors = require('cors')
 const app = express()
 const circularJSON = require('circular-json')
 const compression = require("compression")
 const cookieParser = require('cookie-parser')
 const cookieAuth = require('./cookieAuth')
-const cors = require('cors')
+
 // łączenie się z bazą danych
 const mongoose = require('mongoose')
 require("dotenv").config()
