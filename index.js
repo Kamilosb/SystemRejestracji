@@ -11,7 +11,7 @@ const mongoose = require('mongoose')
 require("dotenv").config()
 mongoose.connect(process.env.DB_URL)
 
-app.use(cors({origin: true, credentials: true, exposedHeaders: 'token' }))
+app.use(cors({origin: true, credentials: true, exposedHeaders: ['Content-Type', 'Authorization', 'token'] }))
 
 const Room = require('./schemas/room')
 const Reservations = require('./schemas/reservations')
@@ -19,9 +19,7 @@ const Reservations = require('./schemas/reservations')
 const userRouter = require('./routers/loginRouter')
 const adminRouter = require('./routers/adminRouter')
 
-
 // zamienamy body requestu na json 
-
 app.use(express.json())
 app.use(compression())
 app.use(cookieParser())
@@ -40,7 +38,6 @@ app.listen(porcik, () => {
 //     res.send('asdasdasdasd')
 //     console.log('Cookies: ', req.cookies)
 //     console.log('Signed Cookies: ', req.signedCookies)
-    
 // })
 
 // routery bo dużo syfu było w jednym pliku
@@ -63,8 +60,6 @@ app.get('/room/:id', async (req, res) => { // zwraca dany pokój po id
     JSON.parse(str) 
     res.send(str)
 })
-
-
 
 app.post('/reservation', async (req, res) => { // tworzenie rezerwacji
     const request = req.body
