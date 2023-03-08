@@ -9,6 +9,12 @@ const addressSchema = new mongoose.Schema({
 const reservationSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,
+    email: { 
+        type: String,
+        required: true,
+        match: /.+\@.+\..+/,
+        unique: true
+    },
     address: addressSchema,
     dateFrom: Date,
     dateTo: Date,
