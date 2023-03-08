@@ -43,9 +43,7 @@ router.post('/login', async (req, res) => {
         try {
             if(await bcrypt.compare(password, userAccount.password)) {
                 const token = await jwt.sign(login, process.env.TOKEN_SECRET)
-                res.cookie("token", token, {
-                    sameSite: "none"
-                })
+                res.cookie("token", token)
                 res.send('Zalogowano pomyślnie')
             } else {
                 return res.send('Błędne hasło lub login') 
