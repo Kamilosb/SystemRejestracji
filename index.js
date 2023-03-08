@@ -72,10 +72,16 @@ app.post('/reservation', async (req, res) => { // tworzenie rezerwacji
     if(checkResponse.length > 28) { // chciałem robić na zasadzie false jeśli błąd ale nie działało ¯\_(ツ)_/¯
         res.send(checkResponse)
     } else {
-        const newReservation = await Reservations.create(request)
-        const str = circularJSON.stringify(newReservation)
-        JSON.parse(str) 
-        res.status(200).send(str)
+        try {
+            const newReservation = await Reservations.create(request)
+            console.log(newReservation)
+            const str = circularJSON.stringify(newReservation)
+            JSON.parse(str) 
+            res.status(200).send(str)
+        } catch(err) {
+            res.status(400).send(err.toString())
+        }
+
     }
 })
 
