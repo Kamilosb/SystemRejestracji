@@ -44,8 +44,6 @@ router.post('/login', async (req, res) => {
             if(await bcrypt.compare(password, userAccount.password)) {
                 const token = await jwt.sign(login, process.env.TOKEN_SECRET)
                 res.cookie("token", token, {
-                    httpOnly: true,
-                    secure: true,
                     sameSite: "none"
                 })
                 res.send('Zalogowano pomyślnie')
