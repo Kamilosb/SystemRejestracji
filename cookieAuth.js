@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken')
 
 exports.cookieAuth = (req, res, next) => {
-    const token = req.headers.authorization.split(" ")[1];
     // console.log(req.headers)
     try {
+        const token = req.headers.authorization.split(" ")[1];
         const user = jwt.verify(token, process.env.TOKEN_SECRET)
         req.user = user
         next()
