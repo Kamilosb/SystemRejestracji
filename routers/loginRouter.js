@@ -4,33 +4,6 @@ const Account = require('../schemas/account')
 const bcrypt = require('bcrypt') 
 const jwt = require('jsonwebtoken')
 
-router.post('/register', async (req, res) => {
-    const { login, password } = req.body
-    if(!login || !password) {  
-        res.send('Login oraz hasło są wymagane!')
-        return
-    }
-    const isObject = (value) => typeof value === "object" && value !== null // do sprawdzania odpowiedzi z bazy danych czy login istnieje 
-    const loginResponse = await Account.exists({"login": login})
-    if(!isObject(loginResponse)) {
-        let hashedPassword;
-        try { // szyfrowanie hasła
-            const salt = await bcrypt.genSalt()
-            hashedPassword = await bcrypt.hash(password, salt)
-        } catch {
-            res.status(500).send
-        }
-        const account = {
-            "login": login,
-            "password": hashedPassword
-        }
-        await Account.create(account) // dodawanie konta do bazy
-        res.status(200).send("Konto stworzone pomyślnie")
-    } else {
-        res.send('Konto o takim loginie już istnieje!')
-    }
-})
-
 router.post('/login', async (req, res) => {
     const { login, password } = req.body
     if(!login || !password) {  
