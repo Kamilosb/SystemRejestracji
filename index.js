@@ -74,7 +74,7 @@ app.post('/reservation', async (req, res) => { // tworzenie rezerwacji
     } else {
         try {
             const newReservation = await Reservations.create(request)
-            console.log(newReservation)
+            // console.log(newReservation)
             const str = circularJSON.stringify(newReservation)
             JSON.parse(str) 
             res.status(200).send(str)
