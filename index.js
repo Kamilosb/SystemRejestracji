@@ -33,17 +33,18 @@ app.listen(porcik, () => {
     console.log("server is working on port " + porcik)
 })
 
-// app.get('/dupa', async (req, res) => { // testowy endpoint
-//     const cookieVal = randomInteger(0, 100000)
-//     res.cookie("testoweCiasteczko", cookieVal, {
-//         httpOnly: true,
-//         secure: true,
-//         sameSite: "none"
-//     })
-//     res.send('asdasdasdasd')
-//     console.log('Cookies: ', req.cookies)
-//     console.log('Signed Cookies: ', req.signedCookies)
-// })
+app.get('/dupa', async (req, res) => { // testowy endpoint
+    res.send('Wygląda na to że działa')
+    // const cookieVal = randomInteger(0, 100000)
+    // res.cookie("testoweCiasteczko", cookieVal, {
+    //     httpOnly: true,
+    //     secure: true,
+    //     sameSite: "none"
+    // })
+    // res.send('asdasdasdasd')
+    // console.log('Cookies: ', req.cookies)
+    // console.log('Signed Cookies: ', req.signedCookies)
+})
 
 // routery bo dużo syfu było w jednym pliku
 app.use('/users', userRouter)
