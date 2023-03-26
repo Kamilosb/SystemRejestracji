@@ -57,6 +57,10 @@ router.get('/reservations', async (req, res) => { // zwraca wszystkie rezerwacje
     })
 })
 
+router.delete('/reservations', async(req, res) => {
+    await Reservations.findByIdAndDelete
+})
+
 router.post('/register', async (req, res) => {
     const { login, password } = req.body
     if(!login || !password) {  
