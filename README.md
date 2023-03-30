@@ -1,5 +1,6 @@
 # SystemRejestracji
 projekt na jjit3
+Przepraszam za brzydkie i nie profesjonalne readme, jak znajde czas to może je ogarne
 
 By odpalić użyj komendy:
 npm run devStart
