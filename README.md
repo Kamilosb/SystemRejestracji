@@ -2,6 +2,8 @@
 projekt na jjit3
 Przepraszam za brzydkie i nie profesjonalne readme, jak znajde czas to może je ogarne
 
+frontend: https://github.com/oskardanielczyk/system-rejestracji-frontend
+
 By odpalić użyj komendy:
 npm run devStart
 
