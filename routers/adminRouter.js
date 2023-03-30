@@ -22,10 +22,19 @@ router.post('/room', async (req, res) => { // dodawanie pokoju
 })
 
 router.delete('/room', async (req, res) => {
-    const request = req.body
-    const rooms = await Room.findById(request.id)
-    console.log(rooms)
-
+    const resId = req.body.id
+    try {
+        const DBResponse = await Room.findByIdAndDelete(resId)
+        // console.log(DBResponse)
+        if(!DBResponse) {
+            res.status(400).send("Wystąpił błąd!")
+        } else {
+            res.status(200).send('Usunięto pomyślnie!')
+        }
+    } catch(err) {
+        res.status(400).send('Wystąpił błąd!')
+        console.log(err)
+    }
 })
 
 function check(request) {
@@ -58,7 +67,21 @@ router.get('/reservations', async (req, res) => { // zwraca wszystkie rezerwacje
 })
 
 router.delete('/reservations', async(req, res) => {
-    await Reservations.findByIdAndDelete
+    // console.log(req)
+    const resId = req.body.id
+    try {
+        const DBResponse = await Reservations.findByIdAndDelete(resId)
+        // console.log(DBResponse)
+        if(!DBResponse) {
+            res.status(400).send("Wystąpił błąd!")
+        } else {
+            res.status(200).send('Usunięto pomyślnie!')
+        }
+    } catch(err) {
+        res.status(400).send('Wystąpił błąd!')
+        console.log(err)
+    }
+    
 })
 
 router.post('/register', async (req, res) => {
